@@ -19,8 +19,9 @@
 /**
  * Compute the Levenshtein distance between two strings.
  *
- * @see Source <a href="http://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance#JavaScript">Wikibooks:Algorithm Implementation/Strings/Levenshtein distance</a>
- * @public
+ * @see Source: <a href="http://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance#JavaScript">Wikibooks:Algorithm Implementation/Strings/Levenshtein distance</a>
+ * @see Wikipedia: <a href="http://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein distance</a>
+  * @public
  * @param {String} str1 One of the strings to score against.
  * @param {String} str2 One of the strings to score against.
  * @returns {Number}    Returns the computed Levenshtein distance between the two argument strings.
@@ -51,8 +52,8 @@ String.levenshteinDistance = function(str1, str2) {
                 matrix[i][j] = matrix[i-1][j-1];
             } else {
                 matrix[i][j] = Math.min(matrix[i-1][j-1] + 1, // substitution
-                                                                Math.min(matrix[i][j-1] + 1, // insertion
-                                                                                 matrix[i-1][j] + 1)); // deletion
+                                    Math.min(matrix[i][j-1] + 1, // insertion
+                                        matrix[i-1][j] + 1)); // deletion
             }
         }
     }

@@ -3,6 +3,9 @@
 Methods to compute [String Metrics](http://en.wikipedia.org/wiki/String_metric)
 for *web browsers* and *[Node.js](http://nodejs.org/)*.
 
+## Supported Metrics
+  * [Levenshtein Distance](http://en.wikipedia.org/wiki/Levenshtein_distance)
+
 ## Usage Examples
 ### Node.js
 ```javascript

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>String.metrics Example</title>
+	<script type="text/javascript" src="string.metrics.js"></script>
+	<script type="text/javascript">
+		window.onload = function () {
+			// Construct an array of pairs of strings to compare.
+			var pairs = [
+				['cow', 'cot'],
+				['cow', 'cat'],
+				['cowbell', 'cowboy'],
+				['foo', 'oof']
+			];
+
+			// Create a rendering function to transform the function name, the pairs of
+			// strings being compared, and the function result to a formatted string.
+			var render = function (fnname, str1, str2, result) {
+				return "The " + fnname + " between '" + str1 + "' and '" + str2 + "' is " + result;
+			};
+
+			// Create a closure to hold the output DOM element and function
+			// object in an isolated namespace. Return a function object which
+			// will mimic some of the console's behaviour in the broswer.
+			var console = function () {
+				var elt = document.getElementById('string-metrics');
+				var fn = {
+					write: function (str) { elt.innerHTML += str; },
+					log: function (str) { fn.write(str + "<br />"); }
+				};
+				return fn;
+			}();
+
+			// Iterate over the pairs of strings, run each function an output the formatted
+			// strings.
+			for(var i = 0; i < pairs.length; i++) {
+				console.write("<p>");
+
+				var pair = pairs[i];
+				console.log(render("levenshteinDistance", pair[0], pair[1],
+						String.metrics.levenshteinDistance(pair[0], pair[1])));
+
+				console.log(render("levenshteinFraction", pair[0], pair[1],
+						String.metrics.levenshteinFraction(pair[0], pair[1])));
+
+				console.write("<p />");
+			}
+		}
+	</script>
+</head>
+<body>
+	<h1>String.metrics Example</h1>
+	<p id="string-metrics"></p>
+</body>
+</html>

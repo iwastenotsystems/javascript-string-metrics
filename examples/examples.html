@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>String.metrics Example</title>
+	<script type="text/javascript" src="string.metrics.js"></script>
+	<script type="text/javascript">
+		window.onload = function () {
+			var pairs = [
+				['cow', 'cot'],
+				['cow', 'cat'],
+				['cowbell', 'cowboy'],
+				['foo', 'oof']
+			];
+
+			var elt = document.getElementById('string-metrics');
+
+			var render = function (fnname, str1, str2, result) {
+				return "The " + fnname + " between '" + str1 + "' and '" + str2 + "' is " + result;
+			}
+
+			for(var i = 0; i < pairs.length; i++) {
+				elt.innerHTML += "<p>";
+
+				var pair = pairs[i];
+				elt.innerHTML += render("levenshteinDistance", pair[0], pair[1], 
+						String.metrics.levenshteinDistance(pair[0], pair[1])) + 
+						"<br />";
+
+				elt.innerHTML += render("levenshteinFraction", pair[0], pair[1], 
+						String.metrics.levenshteinFraction(pair[0], pair[1])) + 
+						"<br />";
+
+				elt.innerHTML += "<p />";
+			}
+		}
+	</script>
+</head>
+<body>
+	<h1>String.metrics Example</h1>
+	<p id="string-metrics"></p>
+</body>
+</html>

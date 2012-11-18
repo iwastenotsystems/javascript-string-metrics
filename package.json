@@ -1,0 +1,21 @@
+{
+  "author": "jonruttan <jonruttan@iwastenotsystems.com> (http://iwastenotsystems.com)",
+  "name": "string-metrics",
+  "description": "Methods to compute string metrics. Currently supports Levenshtein distance.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/iwastenotsystems/javascript-string-metrics",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/iwastenotsystems/javascript-string-metrics.git"
+  },
+  "main": "String.metrics",
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "test": "nodeunit tests/tests.nodeunit.js"
+  }
+}

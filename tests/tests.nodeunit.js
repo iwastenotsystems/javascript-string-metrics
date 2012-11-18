@@ -1,9 +1,48 @@
 // TODO: Fix String.metrics namespace hack--JR
 String.metrics = require('../string.metrics.js').metrics;
 
-// NOTE: To convert from qunit tests:
-//   * Sublime Text Ctrl-H, Alt-R Find: ^(\s*)(ok) Replace: \1test.\2
-//   * `sed 's/^\(\s*\)\(ok\)/\1test.\2/' < tests.qunit.js`
+var maxLength = function (str1, str2) {
+    return Math.max(str1.length, str2.length);
+};
+
+exports.testFraction = function(test) {
+    var pairs = [
+        ['', ''], ['a', ''], ['', 'a'], ['a', 'a']
+    ];
+
+    var render = function (str1, str2, difference, expect) {
+        return "String.metrics.fraction('"+str1+"', '"+str2+"', "+difference+") === "+expect+";";
+    };
+
+    test.expect(4 * pairs.length);
+
+    var i, pair;
+    for(i=0; i < pairs.length; i++) {
+        pair = pairs[i];
+        test.ok(String.metrics.fraction(pair[0], pair[1], 0) === 1,
+                render(pair[0], pair[1], 0, 1));
+    }
+
+    for(i=0; i < pairs.length; i++) {
+        pair = pairs[i];
+        test.ok(String.metrics.fraction(pair[0], pair[1], 1) === 1 - maxLength(pair[0], pair[1]),
+                render(pair[0], pair[1], 1, "1 - maxLength('"+pair[0]+"', '"+pair[1]+"')"));
+    }
+
+    for(i=0; i < pairs.length; i++) {
+        pair = pairs[i];
+        test.ok(String.metrics.fraction(pair[0], pair[1], maxLength) === 1 - maxLength(pair[0], pair[1]),
+                render(pair[0], pair[1], 'maxLength', "1 - maxLength('"+pair[0]+"', '"+pair[1]+"')"));
+    }
+
+    for(i=0; i < pairs.length; i++) {
+        pair = pairs[i];
+        test.ok(String.metrics.fraction(pair[0], pair[1], maxLength) === 1 - maxLength(pair[0], pair[1]),
+                render(pair[0], pair[1], 'maxLength', "1 - maxLength('"+pair[0]+"', '"+pair[1]+"')"));
+    }
+
+    test.done();
+};
 
 exports.testLevenshteinDifference = function(test){
     test.expect(24);
@@ -34,9 +73,9 @@ exports.testLevenshteinDifference = function(test){
     test.done();
 };
 
-exports.testLevenshteinFraction = function(test){
+exports.testlevenshteinFraction = function(test){
     test.expect(24);
-    test.ok(String.metrics.levenshteinFraction('', '') === 0, "'', '' <>= 0");
+    test.ok(String.metrics.levenshteinFraction('', '') === 1, "'', '' <>= 1");
     test.ok(String.metrics.levenshteinFraction('a', 'aa') === 0.5, "'a', 'aa' <>= 0.5");
     test.ok(String.metrics.levenshteinFraction('a', '') === 0, "'a', '' <>= 0");
     test.ok(String.metrics.levenshteinFraction('a', 'b') === 0, "'a', 'b' <>= 0");
@@ -62,4 +101,3 @@ exports.testLevenshteinFraction = function(test){
     test.ok(String.metrics.levenshteinFraction('Saturday', 'sunday') === 0.5, "'Saturday', 'sunday' <>= 0.5");
     test.done();
 };
-

@@ -6,7 +6,7 @@
  * JavaScript
  *
  * @fileoverview        Methods to compute string metrics.
- * @version             0.2.0
+ * @version             0.3.0
  * @author              Jonathan Ruttan <jonruttan@iwastenotsystems.com>
  * @license             http://www.opensource.org/licenses/mit-license.php The MIT License.
  * @package             String.metrics
@@ -21,25 +21,25 @@
      * @namespace Contains methods to compute string metrics.
      * @name String.metrics
      */
-    exports.metrics = {
+    var fns = exports.metrics = {
         /**
-         * Compute a distance between two strings as a fraction between 0 and 1.
+         * Compute the distance between two strings as a fraction of the length
+         * of the longer of the two strings.
          *
          * @public
-         * @memberOf              String.metrics
-         * @param   {String} str1 One of the strings to score against.
-         * @param   {String} str2 One of the strings to score against.
-         * @param   {Number|Function} distance 
-         *                        The integer distance between strings,
-         *                        or a function to compute the distance.
-         * @return  {Number}      Returns the computed distance between the two
-         *                        argument strings as a fraction.
+         * @memberOf                  String.metrics
+         * @param   {String} str1     One of the strings to score against.
+         * @param   {String} str2     One of the strings to score against.
+         * @param   {Number|Function} distance
+         *                            An integer distance between strings,
+         *                            or a function to compute the distance.
+         * @return  {Number}          Returns the computed distance between the
+         *                            two argument strings as a fraction.
          */
         fraction: function( str1, str2, distance ) {
-            return (str1.length && str2.length) ?
-                    1.0 - (typeof distance === 'function' ?
-                        distance( str1, str2 ) : distance) /
-                    Math.max(str1.length, str2.length) : 0;
+            var length = Math.max(str1.length, str2.length);
+            return length ? 1 - (typeof distance === 'function' ?
+                        distance( str1, str2 ) : distance) / length : 1;
         },
 
         /**
@@ -89,8 +89,9 @@
         },
 
         /**
-         * Compute a Levenshtein distance between two strings as a fraction between
-         * 0 and 1.
+         * Compute the Levenshtein distance between two strings as a fraction
+         * of the length of the longer of the two strings.
+         * .
          *
          * @public
          * @memberOf              String.metrics

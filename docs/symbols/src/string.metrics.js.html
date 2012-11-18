@@ -13,7 +13,7 @@
 <span class='line'>  6</span>  * JavaScript
 <span class='line'>  7</span>  *
 <span class='line'>  8</span>  * @fileoverview        Methods to compute string metrics.
-<span class='line'>  9</span>  * @version             0.2.0
+<span class='line'>  9</span>  * @version             0.3.0
 <span class='line'> 10</span>  * @author              Jonathan Ruttan &lt;jonruttan@iwastenotsystems.com>
 <span class='line'> 11</span>  * @license             http://www.opensource.org/licenses/mit-license.php The MIT License.
 <span class='line'> 12</span>  * @package             String.metrics
@@ -28,25 +28,25 @@
 <span class='line'> 21</span>      * @namespace Contains methods to compute string metrics.
 <span class='line'> 22</span>      * @name String.metrics
 <span class='line'> 23</span>      */</span><span class="WHIT">
-<span class='line'> 24</span> </span><span class="WHIT">    </span><span class="NAME">exports.metrics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">fns</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">exports.metrics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 25</span> </span><span class="WHIT">        </span><span class="COMM">/**
-<span class='line'> 26</span>          * Compute a distance between two strings as a fraction between 0 and 1.
-<span class='line'> 27</span>          *
-<span class='line'> 28</span>          * @public
-<span class='line'> 29</span>          * @memberOf              String.metrics
-<span class='line'> 30</span>          * @param   {String} str1 One of the strings to score against.
-<span class='line'> 31</span>          * @param   {String} str2 One of the strings to score against.
-<span class='line'> 32</span>          * @param   {Number|Function} distance 
-<span class='line'> 33</span>          *                        The integer distance between strings,
-<span class='line'> 34</span>          *                        or a function to compute the distance.
-<span class='line'> 35</span>          * @return  {Number}      Returns the computed distance between the two
-<span class='line'> 36</span>          *                        argument strings as a fraction.
-<span class='line'> 37</span>          */</span><span class="WHIT">
-<span class='line'> 38</span> </span><span class="WHIT">        </span><span class="NAME">fraction</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">str1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">str2</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">distance</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 39</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">str1.length</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">str2.length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT">
-<span class='line'> 40</span> </span><span class="WHIT">                    </span><span class="NUMB">1.0</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">distance</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'function'</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT">
-<span class='line'> 41</span> </span><span class="WHIT">                        </span><span class="NAME">distance</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">str1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">str2</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">distance</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT">
-<span class='line'> 42</span> </span><span class="WHIT">                    </span><span class="NAME">Math.max</span><span class="PUNC">(</span><span class="NAME">str1.length</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">str2.length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 26</span>          * Compute the distance between two strings as a fraction of the length
+<span class='line'> 27</span>          * of the longer of the two strings.
+<span class='line'> 28</span>          *
+<span class='line'> 29</span>          * @public
+<span class='line'> 30</span>          * @memberOf                  String.metrics
+<span class='line'> 31</span>          * @param   {String} str1     One of the strings to score against.
+<span class='line'> 32</span>          * @param   {String} str2     One of the strings to score against.
+<span class='line'> 33</span>          * @param   {Number|Function} distance
+<span class='line'> 34</span>          *                            An integer distance between strings,
+<span class='line'> 35</span>          *                            or a function to compute the distance.
+<span class='line'> 36</span>          * @return  {Number}          Returns the computed distance between the
+<span class='line'> 37</span>          *                            two argument strings as a fraction.
+<span class='line'> 38</span>          */</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">        </span><span class="NAME">fraction</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">str1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">str2</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">distance</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">length</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Math.max</span><span class="PUNC">(</span><span class="NAME">str1.length</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">str2.length</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">length</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">distance</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'function'</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">                        </span><span class="NAME">distance</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">str1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">str2</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">distance</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="NAME">length</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 43</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'> 44</span> 
 <span class='line'> 45</span> </span><span class="WHIT">        </span><span class="COMM">/**
@@ -96,20 +96,21 @@
 <span class='line'> 89</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'> 90</span> 
 <span class='line'> 91</span> </span><span class="WHIT">        </span><span class="COMM">/**
-<span class='line'> 92</span>          * Compute a Levenshtein distance between two strings as a fraction between
-<span class='line'> 93</span>          * 0 and 1.
-<span class='line'> 94</span>          *
-<span class='line'> 95</span>          * @public
-<span class='line'> 96</span>          * @memberOf              String.metrics
-<span class='line'> 97</span>          * @param   {String} str1 One of the strings to score against.
-<span class='line'> 98</span>          * @param   {String} str2 One of the strings to score against.
-<span class='line'> 99</span>          * @return  {Number}      Returns the computed distance between the two
-<span class='line'>100</span>          *                        argument strings as a fraction.
-<span class='line'>101</span>          */</span><span class="WHIT">
-<span class='line'>102</span> </span><span class="WHIT">        </span><span class="NAME">levenshteinFraction</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">str1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">str2</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>103</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">exports.metrics.fraction</span><span class="PUNC">(</span><span class="NAME">str1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">str2</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>104</span> </span><span class="WHIT">                    </span><span class="NAME">exports.metrics.levenshteinDistance</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>105</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>106</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>107</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">exports</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'undefined'</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">String</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">exports</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>108</span> </span></pre></body></html>
+<span class='line'> 92</span>          * Compute the Levenshtein distance between two strings as a fraction
+<span class='line'> 93</span>          * of the length of the longer of the two strings.
+<span class='line'> 94</span>          * .
+<span class='line'> 95</span>          *
+<span class='line'> 96</span>          * @public
+<span class='line'> 97</span>          * @memberOf              String.metrics
+<span class='line'> 98</span>          * @param   {String} str1 One of the strings to score against.
+<span class='line'> 99</span>          * @param   {String} str2 One of the strings to score against.
+<span class='line'>100</span>          * @return  {Number}      Returns the computed distance between the two
+<span class='line'>101</span>          *                        argument strings as a fraction.
+<span class='line'>102</span>          */</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="WHIT">        </span><span class="NAME">levenshteinFraction</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">str1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">str2</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">exports.metrics.fraction</span><span class="PUNC">(</span><span class="NAME">str1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">str2</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">                    </span><span class="NAME">exports.metrics.levenshteinDistance</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">exports</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'undefined'</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">String</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">exports</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>109</span> </span></pre></body></html>

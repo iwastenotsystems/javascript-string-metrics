@@ -1,3 +1,43 @@
+var maxLength = function (str1, str2) {
+    return Math.max(str1.length, str2.length);
+};
+
+
+test('String.metrics.fraction()', function() {
+    var pairs = [
+        ['', ''], ['a', ''], ['', 'a'], ['a', 'a']
+    ];
+
+    var render = function (str1, str2, difference, expect) {
+        return "String.metrics.fraction('"+str1+"', '"+str2+"', "+difference+") === "+expect+";";
+    };
+
+    var i, pair;
+    for(i=0; i < pairs.length; i++) {
+        pair = pairs[i];
+        ok(String.metrics.fraction(pair[0], pair[1], 0) === 1,
+                render(pair[0], pair[1], 0, 1));
+    }
+
+    for(i=0; i < pairs.length; i++) {
+        pair = pairs[i];
+        ok(String.metrics.fraction(pair[0], pair[1], 1) === 1 - maxLength(pair[0], pair[1]),
+                render(pair[0], pair[1], 1, "1 - maxLength('"+pair[0]+"', '"+pair[1]+"')"));
+    }
+
+    for(i=0; i < pairs.length; i++) {
+        pair = pairs[i];
+        ok(String.metrics.fraction(pair[0], pair[1], maxLength) === 1 - maxLength(pair[0], pair[1]),
+                render(pair[0], pair[1], 'maxLength', "1 - maxLength('"+pair[0]+"', '"+pair[1]+"')"));
+    }
+
+    for(i=0; i < pairs.length; i++) {
+        pair = pairs[i];
+        ok(String.metrics.fraction(pair[0], pair[1], maxLength) === 1 - maxLength(pair[0], pair[1]),
+                render(pair[0], pair[1], 'maxLength', "1 - maxLength('"+pair[0]+"', '"+pair[1]+"')"));
+    }
+});
+
 test('String.levenshteinDistance()', function() {
     ok(String.metrics.levenshteinDistance('', '') === 0, "'', '' <>= 0");
     ok(String.metrics.levenshteinDistance('a', 'aa') === 1, "'a', 'aa' <>= 1");
@@ -26,7 +66,7 @@ test('String.levenshteinDistance()', function() {
 });
 
 test('String.levenshteinFraction()', function() {
-    ok(String.metrics.levenshteinFraction('', '') === 0, "'', '' <>= 0");
+    ok(String.metrics.levenshteinFraction('', '') === 1, "'', '' <>= 1");
     ok(String.metrics.levenshteinFraction('a', 'aa') === 0.5, "'a', 'aa' <>= 0.5");
     ok(String.metrics.levenshteinFraction('a', '') === 0, "'a', '' <>= 0");
     ok(String.metrics.levenshteinFraction('a', 'b') === 0, "'a', 'b' <>= 0");

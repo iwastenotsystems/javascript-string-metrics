@@ -15,8 +15,8 @@ var str2 = 'cow';
 var distance = s.metrics.levenshteinDistance(str1, str2);
 var fraction = s.metrics.levenshteinFraction(str1, str2);
 
-console.log("s.metrics.levenshteinDistance('" + str1 + "', '" + str2 + "') is " + distance);
-console.log("s.metrics.levenshteinFraction('" + str1 + "', '" + str2 + "') is " + fraction);
+console.log("The Levenshtein distance between '" + str1 + "' and '" + str2 + "' is " + distance + ' characters.');
+console.log("The Levenshtein match between '" + str1 + "' and '" + str2 + "' is " + fraction * 100 + '%');
 ```
 ### Browser
 ```html
@@ -34,10 +34,10 @@ console.log("s.metrics.levenshteinFraction('" + str1 + "', '" + str2 + "') is " 
 
 			var elt = document.getElementById('string-metrics');
 
-			elt.innerHTML += "String.metrics.levenshteinDistance('" + str1 + 
-					"', '" + str2 + "') is " + distance + "<br />";
-			elt.innerHTML += "String.metrics.levenshteinFraction('" + str1 + 
-					"', '" + str2 + "') is " + fraction + "<br />";
+			elt.innerHTML += "The Levenshtein distance between '" + str1 + 
+					"' and '" + str2 + "' is " + distance + ".<br />";
+			elt.innerHTML += "The Levenshtein match between '" + str1 + 
+					"' and '" + str2 + "'  is " + fraction * 100 + "%<br />";
 		}
 	</script>
 </head>

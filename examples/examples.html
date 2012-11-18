@@ -15,8 +15,8 @@
 
 			// Create a rendering function to transform the function name, the pairs of
 			// strings being compared, and the function result to a formatted string.
-			var render = function (fnname, str1, str2, result) {
-				return "The " + fnname + " between '" + str1 + "' and '" + str2 + "' is " + result;
+			var render = function (name, str1, str2, result) {
+				return "The " + name + " between '" + str1 + "' and '" + str2 + "' is " + result;
 			};
 
 			// Create a closure to hold the output DOM element and function
@@ -37,10 +37,10 @@
 				console.write("<p>");
 
 				var pair = pairs[i];
-				console.log(render("levenshteinDistance", pair[0], pair[1],
+				console.log(render("Levenshtein distance", pair[0], pair[1],
 						String.metrics.levenshteinDistance(pair[0], pair[1])));
 
-				console.log(render("levenshteinFraction", pair[0], pair[1],
+				console.log(render("Levenshtein fraction", pair[0], pair[1],
 						String.metrics.levenshteinFraction(pair[0], pair[1])));
 
 				console.write("<p />");
